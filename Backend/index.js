@@ -7,7 +7,7 @@ app.get('/api/weapons' , (req , res) => {
   const  weapons = [
           {
             "id": 1,
-            "title": "Torpedo Shakti 1",
+            "title": "torpedo Shakti 1",
             "description": "A Torpedo which is nothing like weapon",
            
             "thumbnail": "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
@@ -18,7 +18,7 @@ app.get('/api/weapons' , (req , res) => {
           },
           {
             "id": 2,
-            "title": "Mount Gun",
+            "title":"mount Gun",
             "description": "with GPS, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
            
             "thumbnail": "https://i.dummyjson.com/data/products/2/thumbnail.jpg",
@@ -29,7 +29,7 @@ app.get('/api/weapons' , (req , res) => {
           },
           {
             "id": 3,
-            "title": "Universe",
+            "title": "universe",
             "description": "new variant which goes beyond Galaxy to the Universe",
            
             "thumbnail": "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
