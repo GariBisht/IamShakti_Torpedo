@@ -8,24 +8,43 @@ function App() {
 const [weapons , setweapons] = useState([])
 const[error , seterror] = useState(false)
 const [loading , setLoading] = useState(false)
+const [search , setSearch] = useState('')
+
 useEffect(()  => {  
+  // make abort controller Cancel old request 
+  const controller = new AbortController() ;
    (async() => {
   try {
      seterror(false)
      setLoading(true)
-     const response = await axios.get('/api/weapons')
+     const response = await axios.get('/api/weapons?search=' + search 
+      ,
+      { signal: controller.signal  } )
+
      console.log(response.data);
      setweapons(response.data)
      setLoading(false)
   } catch (error) {
-           
+      if(axios.isCancel( error)  ){
+        log(
+          'Request Canceled' , error.message)
+          return }
+        
+      
     seterror(true)
     setLoading(false)
 
   }  //select & put it in try catch 
  } )() // IIF
+ 
+ //clean up method 
 
-  } , [])
+ return () => {
+  controller.abort()
+ }
+  } , [
+    search
+  ])
 
 
   // custum Query used
@@ -37,17 +56,19 @@ useEffect(()  => {
     return <h1> Something went wrong</h1>
   }
 
-  if(loading) {
-    return <h1> Loading....</h1>
-  }
+  // if(loading) {
+  //   return <h1> Loading....😊</h1>
+  // }
 
   return (
     <>
      
       <h1>Shakti Torpedo Listing</h1>
-     
+      <input type="text" placeholder='Search' value={search} onChange={(e) => setSearch(e.target.value)}/>     
+      {loading && (<h1>Loading...😊</h1>)}
+      {error && (<h1>Something went wrong...😠🤨😏</h1>)}
         <p>
-          Numbers of Weapons are : {
+          Numbers of Available Weapons are : {
              weapons.length
           }
         </p>
